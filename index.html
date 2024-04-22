@@ -5,18 +5,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+    <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 40px;">
         <div class="button-container" style="display: flex; justify-content: center; gap: 20px;">
             <button class="button-56" role="button">Charts</button>
             <button class="button-56" role="button">Prediction</button>
         </div>
-        <div class="form-container" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
-            <div class="form__group">
-                <input type="text" class="form__field" placeholder="Enter text here" name="name" id="name" required>
-                <label for="name" class="form__label">Enter Case</label>
+        <form action="process_data.py" method="post">
+            <div class="form-container" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+                <div class="form__group field">
+                    <select name="selected_options" multiple>
+                        <option value="Kilowatt Case">Kilowatt Case</option>
+                        <option value="Dreams & Nightmares Case">Dreams & Nightmares Case</option>
+                        <option value="Fracture Case">Fracture Case</option>
+                    </select>
+                </div>
+                <button class="button-56" role="button" type="submit">Submit</button>
             </div>
-            <button class="button-56" role="button">Submit</button>
-        </div>
+        </form>
     </div>
 </body>
 </html>
