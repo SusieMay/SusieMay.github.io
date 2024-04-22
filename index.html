@@ -1,13 +1,22 @@
 <!DOCTYPE html>
 <html>
-    <link rel="stylesheet" href="style.css">
 <head>
-        <title>Site</title>
+    <title>Site</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="button-container" style="display: flex; justify-content: center; gap: 20px;">
-        <button class="button-56" role="button">Charts</button>
-        <button class="button-56" role="button">Prediction</button>
-      </div>
+    <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+        <div class="button-container" style="display: flex; justify-content: center; gap: 20px;">
+            <button class="button-56" role="button">Charts</button>
+            <button class="button-56" role="button">Prediction</button>
+        </div>
+        <div class="form-container" style="display: flex; flex-direction: column; align-items: center; gap: 20px;">
+            <div class="form__group">
+                <input type="text" class="form__field" placeholder="Enter text here" name="name" id="name" required>
+                <label for="name" class="form__label">Enter Case</label>
+            </div>
+            <button class="button-56" role="button">Submit</button>
+        </div>
+    </div>
 </body>
 </html>
