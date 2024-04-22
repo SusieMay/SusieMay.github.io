@@ -1,23 +1,55 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Site</title>
-    <link rel="stylesheet" href="style.css">
+    <title>Generowanie wykresu interaktywnego</title>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
 </head>
 <body>
-    <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 40px;">
-        <div class="button-container" style="display: flex; justify-content: center; gap: 20px;">
-            <button class="button-56" role="button">Charts</button>
-            <button class="button-56" role="button">Prediction</button>
-        </div>
-        <form action="/" method="post">
-            <select name="selected_options" multiple>
-                <option value="Kilowatt Case">Kilowatt Case</option>
-                <option value="Dreams & Nightmares Case">Dreams & Nightmares Case</option>
-                <option value="Fracture Case">Fracture Case</option>
-            </select>
-            <button type="submit">Wyślij</button>
-        </form>
-    </div>
+    <h1>Generowanie wykresu interaktywnego</h1>
+    <form id="plot-form">
+        <label for="market-hash-names">Nazwy skrzynek (oddzielone przecinkami):</label><br>
+        <input type="text" id="market-hash-names" name="market-hash-names"><br>
+        <label for="num-days">Liczba dni:</label><br>
+        <input type="number" id="num-days" name="num-days"><br><br>
+        <input type="submit" value="Generuj wykres">
+    </form>
+    <div id="plot-container" style="width: 800px; height: 600px;"></div>
+
+    <script>
+        document.getElementById('plot-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            var marketHashNames = document.getElementById('market-hash-names').value.split(',');
+            var numDays = parseInt(document.getElementById('num-days').value);
+
+            fetch('/generate_plot', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    market_hash_names: marketHashNames,
+                    num_days: numDays
+                })
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.json();
+            })
+            .then(data => {
+                console.log("Received data:", data);
+                var plotContainer = document.getElementById('plot-container');
+                plotContainer.innerHTML = data.plot_html;
+                Plotly.newPlot(plotContainer, JSON.parse(data.plot_data), JSON.parse(data.plot_layout));
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                var plotContainer = document.getElementById('plot-container');
+                plotContainer.innerHTML = '<p>Wystąpił błąd podczas generowania wykresu.</p>';
+            });
+        });
+    </script>
 </body>
 </html>
