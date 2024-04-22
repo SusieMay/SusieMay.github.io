@@ -3,8 +3,10 @@ import csv
 from datetime import datetime
 import plotly.graph_objs as go
 import plotly.io as pio
+from flask_frozen import Freezer
 
 app = Flask(__name__)
+freezer = Freezer(app)
 
 @app.route('/')
 def index():
@@ -59,4 +61,4 @@ def generate_plot():
     return jsonify({'plot_data': plot_data, 'plot_layout': plot_layout})
 
 if __name__ == '__main__':
-    app.run()
+    freezer.freeze()
