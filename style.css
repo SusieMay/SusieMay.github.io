@@ -1,6 +1,8 @@
 body {
     font-family: sans-serif;
-    background-color: powderblue;
+    background: rgb(2,0,36);
+    background: rgb(63,94,251);
+    background: radial-gradient(circle, white 19%, powderblue 90%);
   }
   
 
